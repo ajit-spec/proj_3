@@ -1,0 +1,27 @@
+<div class="container" *ngIf="cart_item">
+  <div class="left-section">
+
+    <div class="item-body">
+      <h3>{{cart_item.name}}</h3>
+      <p>{{cart_item.description}}</p>
+      <div class="bottom-section">
+        <div class="qty">
+          <button mat-icon-button (click)="decrease_qty()">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+          <span>{{cart_item.qty}}</span>
+          <button mat-icon-button (click)="increase_qty()">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+        <button mat-raised-button color="warn" (click)="delete_product_into_cart()">remove item</button>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="right-section">
+    <h2>Amount</h2>
+    <p>{{(cart_item.price * cart_item.qty) | currency:'INR':'symbol'}}</p>
+  </div>
+</div>

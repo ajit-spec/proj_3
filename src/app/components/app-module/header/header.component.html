@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <h2>My App</h2>
+  <nav>
+    <button mat-button [routerLink]="['/admin']" *ngIf="service4.getcurrentuser()?.isadmin">all products
+    </button>
+    <button mat-button [routerLink]="['/product']" *ngIf="!service4.getcurrentuser()?.isadmin">all products
+    </button>
+    <button mat-button [routerLink]="['/admin', 'add-product']" *ngIf="service4.getcurrentuser()?.isadmin">add product
+    </button>
+    <button mat-button [matMenuTriggerFor]="menu">welcome {{service4.getcurrentuser().name}}</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/', 'my-account']">My Account</button>
+      <button mat-menu-item (click)="service1.logout()">logout</button>
+    </mat-menu>
+    <button mat-icon-button [routerLink]="['/', 'product', 'cart']">
+      <mat-icon>shopping_bag</mat-icon>
+    </button>
+  </nav>
+</mat-toolbar>

@@ -1,0 +1,39 @@
+<div class="container" [ngStyle]="{
+display: carts.length > 0 ? 'flex' : 'none'
+}">
+  <div class="left-section">
+    <app-cart-item *ngFor="let item of carts" [cart_item]="item"
+                   (get_products_from_cart_event)="get_products_from_cart()"></app-cart-item>
+  </div>
+  <div class="right-section">
+    <h2>Total Amount</h2>
+    <p>{{total_amt | currency:'INR':'symbol'}}</p>
+    <div class="payment-wrapper">
+      <form [formGroup]="stripeform" (ngSubmit)="createToken()">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput [formControlName]="'name'">
+          <mat-error *ngIf="getformcontrols().name.invalid">{{geterrormsgforname()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput [formControlName]="'email'">
+          <mat-error *ngIf="getformcontrols().email.invalid">{{geterrormsgforemail()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput [formControlName]="'phone'">
+          <mat-error *ngIf="getformcontrols().phone.invalid">{{geterrormsgforphone()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput [formControlName]="'location'">
+          <mat-error *ngIf="getformcontrols().location.invalid">{{geterrormsgforlocation()}}</mat-error>
+        </mat-form-field>
+        <div id="card-element" class="field"></div>
+        <button type="submit" mat-raised-button color="primary">Pay</button>
+      </form>
+    </div>
+  </div>
+</div>
+<h2 *ngIf="carts.length === 0" class="no-item">{{cart_msg}}</h2>
